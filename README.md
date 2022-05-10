@@ -16,22 +16,6 @@
 
 ## Metrics
 
-## Other metrics (not fom the slides)
-
-### Automated Pyramid Scoring
-#### Authors
-Rebecca J. Passonneau, Emily Chen, Weiwei Guo, Dolores Perin
-
-#### Abstract
-The pyramid method for content evaluation of automated summarizers produces scores that are shown
-to correlate well with manual scores used in educational assessment of students’ summaries. This
-motivates the development of a more accurate automated method to compute pyramid scores. Of three
-methods tested here, the one that performs best relies on latent semantics
-
-Paper: https://aclanthology.org/P13-2026.pdf
-
-
-
 ### Model Augmented Relevance Score (MARS)
 #### Authors 
 Ruibo Liu, Jason Wei, and Soroush Vosoughi. 2021
