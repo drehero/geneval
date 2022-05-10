@@ -16,6 +16,35 @@
 
 ## Metrics
 
+## Other metrics (not fom the slides)
+
+### Automated Pyramid Scoring
+#### Authors
+Rebecca J. Passonneau, Emily Chen, Weiwei Guo, Dolores Perin
+
+#### Abstract
+The pyramid method for content evaluation of automated summarizers produces scores that are shown
+to correlate well with manual scores used in educational assessment of students’ summaries. This
+motivates the development of a more accurate automated method to compute pyramid scores. Of three
+methods tested here, the one that performs best relies on latent semantics
+
+Paper: https://aclanthology.org/P13-2026.pdf
+
+
+
+### Model Augmented Relevance Score (MARS)
+#### Authors 
+Ruibo Liu, Jason Wei, and Soroush Vosoughi. 2021
+
+#### Abstract
+Although automated metrics are commonly used to evaluate NLG systems, they often correlate poorly with human judgements. Newer metrics such as BERTScore have addressed many weaknesses in prior metrics such as BLEU and ROUGE, which rely on n-gram matching. These newer methods, however, are still limited in that they do not consider the generation context, so they cannot properly reward generated text that is correct but deviates from the given reference. In this paper, we propose Language Model Augmented Relevance Score (MARS), a new context-aware metric for NLG evaluation. MARS leverages off-the-shelf language models, guided by reinforcement learning, to create augmented references that consider both the generation context and available human references, which are then used as additional references to score generated text. Compared with seven existing metrics in three common NLG tasks, MARS not only achieves higher correlation with human reference judgements, but also differentiates well-formed candidates from adversarial samples to a larger degree.
+
+Paper: https://aclanthology.org/2021.acl-long.521.pdf, data can be found here:  https://aclanthology.org/2021.acl-long.521/ 
+Code:
+
+
+####### Metrics from the slides
+
 ### BERTScore
 #### Authors
 Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian Q. Weinberger, Yoav Artzi
