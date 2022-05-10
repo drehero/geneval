@@ -16,6 +16,35 @@
 
 ## Metrics
 
+### Another library for language model scoring
+#### Abstract 
+Pretrained masked language models (MLMs)
+require finetuning for most NLP tasks. Instead,
+we evaluate MLMs out of the box via their
+pseudo-log-likelihood scores (PLLs), which
+are computed by masking tokens one by one.
+We show that PLLs outperform scores from
+autoregressive language models like GPT-2 in
+a variety of tasks. By rescoring ASR and
+NMT hypotheses, RoBERTa reduces an endto-end LibriSpeech model’s WER by 30% relative and adds up to +1.7 BLEU on state-of-theart baselines for low-resource translation pairs, with further gains from domain adaptation. We
+attribute this success to PLL’s unsupervised expression of linguistic acceptability without a
+left-to-right bias, greatly improving on scores
+from GPT-2 (+10 points on island effects, NPI
+licensing in BLiMP). One can finetune MLMs
+to give scores without masking, enabling computation in a single inference pass. In all, PLLs
+and their associated pseudo-perplexities (PPPLs) enable plug-and-play use of the growing
+number of pretrained MLMs; e.g., we use a
+single cross-lingual model to rescore translations in multiple languages. We release our
+library for language model scoring at https:
+//github.com/awslabs/mlm-scoring
+
+#### Library
+https://github.com/awslabs/mlm-scoring
+
+Paper: https://aclanthology.org/2020.acl-main.240.pdf
+
+
+
 ### Model Augmented Relevance Score (MARS)
 #### Authors 
 Ruibo Liu, Jason Wei, and Soroush Vosoughi. 2021
