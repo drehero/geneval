@@ -157,4 +157,43 @@ We study unsupervised multi-document summarization evaluation metrics, which req
 [[Paper]](https://arxiv.org/abs/2005.03724) [[Code]](https://github.com/yg211/acl20-ref-free-eval)
 
 ## Datasets
+### WMT18
+#### Authors
+Qingsong Ma, Ondrej Bojar, and Yvette Graham  
+  
+#### Abstract
+This paper presents the results of the WMT18 Metrics Shared Task. We asked participants of this task to score the outputs of the MT systems involved in the WMT18 News Translation Task with automatic metrics. We collected scores of 10 metrics and 8 research groups. In addition to that, we computed scores of 8 standard metrics (BLEU, SentBLEU, chrF, NIST, WER, PER, TER and CDER) as baselines. The collected scores were evaluated in terms of system-level correlation (how well each metric’s scores correlate with WMT18 official manual ranking of systems) and in terms of segment-level correlation (how often a metric agrees with humans in judging the quality of a particular sentence relative to alternate outputs). This year, we employ a single kind of manual evaluation: direct assessment (DA).
+
+[[Paper]](https://aclanthology.org/W18-6450.pdf) [[Code]](https://huggingface.co/datasets/wmt18)
+
+### Parallel Data, Tools and Interfaces in OPUS
+#### Authors
+Jörg Tiedemann
+  
+#### Abstract
+This paper presents the current status of OPUS, a growing language resource of parallel corpora and related tools. The focus in OPUS is to provide freely available data sets in various formats together with basic annotation to be useful for applications in computational linguistics, translation studies and cross-linguistic corpus studies. In this paper, we report about new data sets and their features, additional annotation tools and models provided from the website and essential interfaces and on-line services included in the project.
+
+[[Paper]](https://aclanthology.org/L12-1246/) [[Code]](https://huggingface.co/datasets/opus_euconst)
+
+
+### Phrase-based statistical language generation using graphical models and active learning (BAGEL)
+#### Authors
+
+François Mairesse, Milica Gašić, Filip Jurčíček, Simon Keizer, Blaise Thomson, Kai Yu, Steve Young
+ 
+#### Abstract
+This paper presents the current status of OPUS, a growing language resource of parallel corpora and related tools. The focus in OPUS is to provide freely available data sets in various formats together with basic annotation to be useful for applications in computational linguistics, translation studies and cross-linguistic corpus studies. In this paper, we report about new data sets and their features, additional annotation tools and models provided from the website and essential interfaces and on-line services included in the project.
+
+[[Paper]](https://aclanthology.org/P10-1157/) [[Code]]
+
+
+## OSCAR Open Super-large Crawled Aggregated coRpus
+#### Authors
+
+François Mairesse, Milica Gašić, Filip Jurčíček, Simon Keizer, Blaise Thomson, Kai Yu, Steve Young
+ 
+#### Abstract
+Common Crawl is a considerably large, heterogeneous multilingual corpus comprised of crawled documents from the internet, surpassing 20TB of data and distributed as a set of more than 50 thousand plain text files where each contains many documents written in a wide variety of languages. Even though each document has a metadata block associated to it, this data lacks any information about the language in which each document is written, making it extremely difficult to use Common Crawl for monolingual applications. We propose a general, highly parallel, multithreaded pipeline to clean and classify Common Crawl by language; we specifically design it so that it runs efficiently on medium to low resource infrastructures where I/O speeds are the main constraint. We develop the pipeline so that it can be easily reapplied to any kind of heterogeneous corpus and so that it can be parameterised to a wide range of infrastructures. We also distribute a 6.3TB version of Common Crawl, filtered, classified by language, shuffled at line level in order to avoid copyright issues, and ready to be used for NLP applications.
+
+[[Paper]](https://ids-pub.bsz-bw.de/frontdoor/deliver/index/docId/9021/file/Suarez_Sagot_Romary_Asynchronous_Pipeline_for_Processing_Huge_Corpora_2019.pdf) [[Code]](https://github.com/pjox/goclassy)
 
