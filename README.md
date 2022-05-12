@@ -187,7 +187,7 @@ This paper presents the current status of OPUS, a growing language resource of p
 [[Paper]](https://aclanthology.org/P10-1157/) [[Code]]
 
 
-## OSCAR Open Super-large Crawled Aggregated coRpus
+### OSCAR Open Super-large Crawled Aggregated coRpus
 #### Authors
 
 François Mairesse, Milica Gašić, Filip Jurčíček, Simon Keizer, Blaise Thomson, Kai Yu, Steve Young
@@ -197,3 +197,27 @@ Common Crawl is a considerably large, heterogeneous multilingual corpus comprise
 
 [[Paper]](https://ids-pub.bsz-bw.de/frontdoor/deliver/index/docId/9021/file/Suarez_Sagot_Romary_Asynchronous_Pipeline_for_Processing_Huge_Corpora_2019.pdf) [[Code]](https://github.com/pjox/goclassy)
 
+
+### TaPaCo: A Corpus of Sentential Paraphrases for 73 Languages
+#### Authors
+
+Yves Scherrer
+
+#### Abstract
+
+This paper presents TaPaCo, a freely available paraphrase corpus for 73 languages extracted from the Tatoeba database. Tatoeba is a crowdsourcing project mainly geared towards language learners. Its aim is to provide example sentences and translations for particular linguistic constructions and words. The paraphrase corpus is created by populating a graph with Tatoeba sentences and equivalence links between sentences "meaning the same thing". This graph is then traversed to extract sets of paraphrases. Several language-independent filters and pruning steps are applied to remove uninteresting sentences. A manual evaluation performed on three languages shows that between half and three quarters of inferred paraphrases are correct and that most remaining ones are either correct but trivial, or near-paraphrases that neutralize a morphological distinction. The corpus contains a total of 1.9 million sentences, with 200 - 250 000 sentences per language. It covers a range of languages for which, to our knowledge, no other paraphrase dataset exists.
+
+[[Paper]](https://doi.org/10.5281/zenodo.3707949) [[Code]](https://zenodo.org/record/3707949#.YnzOwi8RrUJ)
+
+
+### WIT3: Web Inventory of Transcribed and Translated Talks
+
+#### Authors
+
+Mauro Cettolo, Christian Girardi, Marcello Frederico
+
+#### Abstract 
+
+We describe here a Web inventory named WIT3 that offers access to a collection of transcribed and translated talks. The core of WIT3 is the TED Talks corpus, that basically redistributes the original content published by the TED Conference web- site (http://www.ted.com). Since 2007, the TED Conference, based in California, has been posting all video recordings of its talks together with subtitles in English and their translations in more than 80 lan- guages. Aside from its cultural and so- cial relevance, this content, which is pub- lished under the Creative Commons BY- NC-ND license, also represents a precious language resource for the machine transla- tion research community, thanks to its size, variety of topics, and covered languages. This effort repurposes the original content in a way which is more convenient for ma- chine translation researchers.
+
+[[Paper]](https://aclanthology.org/2012.eamt-1.60.pdf) [[Code]](https://wit3.fbk.eu)
