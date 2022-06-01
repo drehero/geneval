@@ -1,5 +1,7 @@
 # Evaluation Metrics Library
 
+https://docs.google.com/document/d/1mQQ5Bg5r7mSZjxBgXJ6lUzSRd00W2LIY3JdR4t0x2OI/edit?usp=sharing
+
 ## Research Questions
 * Can we provide a unified access point to different evaluation metrics allowing easy access for different users?
 * Can we also provide the majority of relevant datasets in the same environment?
