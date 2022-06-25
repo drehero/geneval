@@ -42,6 +42,7 @@ responsible author left the lab.
 An issue not yet discussed is the package environment and exact procedure used. Belz (2019) discusses, that for multiple reproduction of a NLP implementation,
 in which four different authors tried to mimic the original conditions as close as possible, scores of **68-72%** were reached - and a difference in 4 percent
 is considered a massive improvement for an ML system. Here, the environment and score implementation, while the same algorithm, were not identical.   
+
 ## What is being done? 
 This issue has gained traction, including being a task in several conferences (ICML,ICRL, NEURIPS) and even the main focus of others (REPROLANG,ReproGen). 
 There are several checklist like https://github.com/paperswithcode/releasing-research-code in which a template for providing code, parameters and data are
@@ -53,12 +54,13 @@ Reproducibility is a measure of precision of repetitions of the given measuremen
 Repeatability is a special form of reproducibility, in which all conditions are the same.  
 Precision can be choosen, but coefficient of variance is a great choice, as it is unit independent.  
 
+____
 - 1.For a set of n measurements to be assessed, identify the shared object and measurand.  
 - 2. Identify all conditions of measurement Ci for which information is available for all measurements, and specify values for each condition, including measurement method and procedure.
 - 3. Gather the n measured quantity values v1; v2; :::vn.  
 - 4. Compute precision for v1; v2; :::vn, giving reproducibility score R.  
 - 5. Report resulting R score and associated confidence statistics, alongside the Ci.  
-
+____
 Example:
 - Object: ML System  
 - Measurand: BLUE SCORE
