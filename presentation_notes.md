@@ -63,7 +63,7 @@ Example:
 - Object: ML System  
 - Measurand: BLUE SCORE
 - Object Conditions: Code, Compile, training procedure 
-- Measurement Conditions: Defintion, Implementation (code, our library)
+- Measurement Conditions: Defintion, Implementation (code, **our library**)
 - Measurement Procedure condition: Procedure, Test Set, Responsible Party
 
 Show example
