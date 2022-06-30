@@ -5,7 +5,7 @@
 Why? We are expected to extend a foundation of literature to new ideas, this idea is often called standing on the shoulder of giants. If we build upon a bad foundation, our ideas can not be a foundation either. But you can just repeat an experiment and see if it works, right? A Survey by Baker in 2016 asked authors publishing in the esteemed Nature magazin about reproducibility.  
 As you can see on the left:  
 - They found When replicating their own work, only a small number of teams were consistently succesful.
--  When working with other teams' research, this picture is different.
+-  When working with other teams' research, the situation is even worse.
 -  It is significant harder to replicate others work.  
 
 - On the rigth:
