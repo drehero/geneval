@@ -21,36 +21,38 @@ Altogether quite unsatisfying definitions (we will come to a newly suggested one
 -> Reproducability Crisis
 Credibility of Scientific research is based upon peer review and use to scientific community. Found in Nature Survey (2016, Baker)
 However, in many fields, data is not openly available or exact methodolgy is unclear. When replicating their own work, most teams are succesful
-and generally arrive at the same conclusions
-When working with other teams research, this picture is different. Many attempts already fail at reproducing the experiment or code, and then those results
-differ in a majority of cases.
+and generally arrive at the same conclusions.When working with other teams research, this picture is different. Many attempts already fail at reproducing the experiment or code, and then those results differ in a majority of cases.  
+-> In more traditional fields, there is a pressure to publish in esteemed journals that is often required for grants or access to labs. Therefore, in some cases, 
+ - authors act in bad faith and use methods like p hacking (collect data until hypothesis is true)
+ - changing their hypothesis to be sucessful, to generate interesting results as this improves their chances to get published in a journal (MONYA BAKER NATURE article)
+ - Other reasons include missing information about methodology or simply missing the means to access raw data
 
--> In some cases, authors act in bad faith and use methods like p hacking (collect data until hypothesis is true) 
-or changing their hypothesis to be sucessful, to generate interesting results as this improves 
-their chances to get published in a journal (MONYA BAKER NATURE article)
-A possible solution: Psychology recognised this issue and there is a push to pre-register studies, in which all parameters eg. number of data points, methods and hypothesis 
-are fixed apriori. 
-What does this have to do with NLP? Intuitively, one would think that software is easier to work with than behavioural or chemical experiments. Isn't is just downloading code and pressing "RUN"? Assuming most of you 
+Psychology also suffers from this issue and enact a possible solution:Pre-register studies.
+- Before you start collecting data, fix hypothesis, number of samples, methodology, etc and get this peer reviewed (catch early mistakes)
+- Some extra work but: If followed and everything is made accessible:
+- Guarantee to be published in a magazine that is part of the Open Science Foundation.  
+
+What does this have to do with ML? Intuitively, one would think that software is easier to work with than behavioural or chemical experiments. Isn't is just downloading code and pressing "RUN"? Assuming most of you 
 tried to reimplement something you found published, are you agreeing with this statement? 
-What you experienced is sadly a wide spread problem in NLP: Mieskes et al ACM community survey (2019), thesy found that:
-- In just about 50% of cases teams other than the original team reached the same conclusion or figures. But in many cases, they were able to get the system running but failed to obtain the similiar results. In the remaining cases, they did not manage to implement the system.
+What we experience is sadly a wide spread problem in ML and NLP: Mieskes et al ACM community survey (2019) found that:
+- In just 40% of cases teams other than the original team reached the same conclusion or figures. But in 30% of cases, they were able to get the system running but failed to obtain the similiar results. In the remaining cases, they did not manage to implement the system.
 - Why is that?
-- they found that in 60% of cases, code could be obtained on github or the authors webpage, over 14% reported 
-not being able to find any public code. 
-- **11%** reported being unable to find data used in a paper.
-- For parameters, **40%** are found just reported in the paper while around **14%** of respondants were unable to find parameters. 
+- Public code is available on a Version Control System in just half the cases and in over a quarter of cases they are only available on the authors or lab page. Over 14% reported not being able to access the code in any way. 
+- Public data is available on a VCS for 27% of cases and for 38% of cases on authors or lab pages. **11%** reported being unable to find data used in a paper.
+- Issue? Lab and author pages may restructure, be taken down, etc
+- For parameters, **40%** are found just reported in the paper while around **14%** of respondants were unable to find parameters (cmd line flags)
 - In many of the remaining cases, code, data or parameters were obtained via personal communication via the original author - however, personal correspondence only yielded helpful answers in **30%** of contact attempts - others were ignored, not helpful or the 
-responsible author left the lab.  
+responsible author left the lab and no process for contact was established.
 
-Computers are difficult:
+Something else:Computers are difficult
 - Python and Package Versions management via Anaconda or pyEnv is often the first issue but can resolved many times, although often resulting in a different use of versions
 - Many packages like PyTorch use a source of randomness to speed up many operations. This can lead to a difference that is significance, but setting all seeds is often not enough to avoid this. However, at least for pytorch, there are deterministic versions of some operations leading to more stable results at the cost of performance
--  Implementations of algorithms can change the outcome of a model or an evaluation, we will see an example of this on the next slide
--  Even the same operations on different hardware can change outcome (NVIDIA)
+-  Implementations of algorithms can change the outcome of a model or an evaluation. Belz 2020 discusses that for a given NLP system, four reproductions trying to replicate the paper as close as possible returned results between 68-72% - a difference which may be considered a massive improvement. One unknown variable? Different Implementations of the weighted F1 evaluation. 
+-  Even the same operations on different hardware can change outcome, especially on GPU (NVIDIA)
 
- Belz (2019) discusses, that for multiple reproduction of Vajjala and Rama's Essay Grading System,
-in which four different authors tried to mimic the original conditions as close as possible, scores of **68-72%** were reached - and a difference in 4 percent
-is considered a massive improvement for an ML system. Here, the environment and score implementation, while the same algorithm, were not identical.   
+# Belz (2019) discusses, that for multiple reproduction of Vajjala and Rama's Essay Grading System,
+# in which four different authors tried to mimic the original conditions as close as possible, scores of **68-72%** were reached - and a difference in 4 percent
+# is considered a massive improvement for an ML system. Here, the environment and score implementation, while the same algorithm, were not identical.   
 
 ## What is being done? 
 This issue has gained traction, including being a task in several conferences (ICML,ICRL, NEURIPS) and even the main focus of others (REPROLANG,ReproGen). 
