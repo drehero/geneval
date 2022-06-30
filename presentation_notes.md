@@ -49,11 +49,11 @@ Something else:Computers are difficult
 - Many packages like PyTorch use a source of randomness to speed up many operations. This can lead to a difference that is significance, but setting all seeds is often not enough to avoid this. However, at least for pytorch, there are deterministic versions of some operations leading to more stable results at the cost of performance
 -  Implementations of algorithms can change the outcome of a model or an evaluation. Belz 2020 discusses that for a given NLP system, four reproductions trying to replicate the paper as close as possible returned results between 68-72% - a difference which may be considered a massive improvement. One unknown variable? Different Implementations of the weighted F1 evaluation. 
 -  Even the same operations on different hardware can change outcome, especially on GPU (NVIDIA)
-
-# Belz (2019) discusses, that for multiple reproduction of Vajjala and Rama's Essay Grading System,
-# in which four different authors tried to mimic the original conditions as close as possible, scores of **68-72%** were reached - and a difference in 4 percent
-# is considered a massive improvement for an ML system. Here, the environment and score implementation, while the same algorithm, were not identical.   
-
+____
+Belz (2019) discusses, that for multiple reproduction of Vajjala and Rama's Essay Grading System,
+in which four different authors tried to mimic the original conditions as close as possible, scores of **68-72%** were reached - and a difference in 4 percent
+is considered a massive improvement for an ML system. Here, the environment and score implementation, while the same algorithm, were not identical.   
+____
 ## What is being done? 
 This issue has gained traction, including being a task in several conferences (ICML,ICRL, NEURIPS) and even the main focus of others (REPROLANG,ReproGen). 
 There are several checklist like https://github.com/paperswithcode/releasing-research-code in which a template for providing code, parameters and data are
