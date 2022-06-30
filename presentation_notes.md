@@ -19,13 +19,12 @@ Altogether quite unsatisfying definitions (we will come to a newly suggested one
 
 ## Why is this important? 
 -> Reproducability Crisis
-Credibility of Scientific research is based upon peer review and use to scientific community. Found in Nature Survey (2016, Baker)
-However, in many fields, data is not openly available or exact methodolgy is unclear. When replicating their own work, most teams are succesful
-and generally arrive at the same conclusions.When working with other teams research, this picture is different. Many attempts already fail at reproducing the experiment or code, and then those results differ in a majority of cases.  
+Credibility of Scientific research is based upon peer review and use to scientific community. You are expected to build a foundation of literature around new ideas. A Survey by Baker in 2016 asked authors publishing in the esteemed Nature magazin about reproducibility.
+As you can see on the left:They found When replicating their own work, only a small majority of teams were not unsuccesful and generally arrive at the same conclusions. When working with other teams research, this picture is different. Many attempts already fail at reproducing the experiment or code, and then those results differ in a majority of cases.  
 -> In more traditional fields, there is a pressure to publish in esteemed journals that is often required for grants or access to labs. Therefore, in some cases, 
  - authors act in bad faith and use methods like p hacking (collect data until hypothesis is true)
  - changing their hypothesis to be sucessful, to generate interesting results as this improves their chances to get published in a journal (MONYA BAKER NATURE article)
- - Other reasons include missing information about methodology or simply missing the means to access raw data
+ - Other reasons include missing information about methodology or simply missing the means to access raw data can be seen on the right
 
 Psychology also suffers from this issue and enact a possible solution:Pre-register studies.
 - Before you start collecting data, fix hypothesis, number of samples, methodology, etc and get this peer reviewed (catch early mistakes)
