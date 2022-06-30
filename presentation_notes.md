@@ -1,21 +1,4 @@
-# Reproducibility
 
-## What is reproducitility? What is the difference to repeatability?
-Some definitions  
-### ACM:
-results have been reproduced if obtained in a different study by a different team using artifacts supplied in part by the original authors  
-replicated if obtained in a different study by a different team using artifacts not supplied by the original authors.  
-### Drummond (2009)  
-what ML calls reproducibility is in fact replicability which is the ability to re-run an experiment in exactly the same way, whereas true
-reproducibility is the ability to obtain the same result by different means. 
-### Rougieret al. (2017)
-[r]eproducing the result of a computation means running the same software on the same input data and obtaining the same results. 
-Replicating a published result means writing and then running new software based on the description of a computational model or method provided in
-the original publication”.
-
-(asarXiv:2109.01211v1 [cs.CL] 2 Sep 2021)
-
-Altogether quite unsatisfying definitions (we will come to a newly suggested one later) 
 
 ## Why is this important? 
 -> Reproducability Crisis
@@ -62,6 +45,26 @@ Belz (2019) discusses, that for multiple reproduction of Vajjala and Rama's Essa
 in which four different authors tried to mimic the original conditions as close as possible, scores of **68-72%** were reached - and a difference in 4 percent
 is considered a massive improvement for an ML system. Here, the environment and score implementation, while the same algorithm, were not identical.   
 ____
+
+# Reproducibility
+
+## What is reproducitility? What is the difference to repeatability?
+Some definitions  
+### ACM:
+results have been reproduced if obtained in a different study by a different team using artifacts supplied in part by the original authors  
+replicated if obtained in a different study by a different team using artifacts not supplied by the original authors.  
+### Drummond (2009)  
+what ML calls reproducibility is in fact replicability which is the ability to re-run an experiment in exactly the same way, whereas true
+reproducibility is the ability to obtain the same result by different means. 
+### Rougieret al. (2017)
+[r]eproducing the result of a computation means running the same software on the same input data and obtaining the same results. 
+Replicating a published result means writing and then running new software based on the description of a computational model or method provided in
+the original publication”.
+
+(asarXiv:2109.01211v1 [cs.CL] 2 Sep 2021)
+
+Altogether quite unsatisfying definitions (we will come to a newly suggested one later) 
+
 ## What is being done? 
 This issue has gained traction, including being a task in several conferences (ICML,ICRL, NEURIPS) and even the main focus of others (REPROLANG,ReproGen). 
 There are several checklist like https://github.com/paperswithcode/releasing-research-code in which a template for providing code, parameters and data are
