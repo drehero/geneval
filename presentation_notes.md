@@ -29,12 +29,14 @@ As you can see on the left:
  - changing their hypothesis to be sucessful, to generate interesting results as this improves their chances to get published in a journal (MONYA BAKER NATURE article)
  - Other reasons include missing information about methodology or simply missing the means to access raw data can be seen on the right
 
-This is a known issue!
+This is a known issue with some known solutions
 
 Psychology also suffers from this issue and enact a possible solution:Pre-register studies.
 - Before you start collecting data, fix hypothesis, number of samples, methodology, etc and get this peer reviewed (catch early mistakes)
 - Some extra work but: If followed and everything is made accessible:
 - Guarantee to be published in a magazine that is part of the Open Science Foundation.  
+
+-> You can already see that this is hard to apply to ML and in general:  
 
 What does this have to do with ML? Intuitively, one would think that software is easier to work with than behavioural or chemical experiments. Isn't is just downloading code and pressing "RUN"? Assuming most of you 
 tried to reimplement something you found published, are you agreeing with this statement? 
