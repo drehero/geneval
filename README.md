@@ -18,56 +18,6 @@ https://docs.google.com/document/d/1mQQ5Bg5r7mSZjxBgXJ6lUzSRd00W2LIY3JdR4t0x2OI/
 
 ## Metrics
 
-### A Training-free and Reference-free Summarization Evaluation Metric via Centrality-weighted Relevance and Self-referenced Redundancy
-#### Abstract
-In recent years, reference-based and supervised summarization evaluation metrics have been widely explored. However, collecting human-annotated references and ratings are costly and time-consuming. To avoid these limitations, we propose a training-free and reference-free summarization evaluation metric. Our metric consists of a centrality-weighted relevance score and a self-referenced redundancy score. The relevance score is computed between the pseudo reference built from the source document and the given summary, where the pseudo reference content is weighted by the sentence centrality to provide importance guidance. Besides an F1-based relevance score, we also design an F𝛽-based variant that pays more attention to the recall score. As for the redundancy score of the summary, we compute a self-masked similarity score with the summary itself to evaluate the redundant information in the summary. Finally, we combine the relevance and redundancy scores to produce the final evaluation score of the given summary. Extensive experiments show that our methods can significantly outperform existing methods on both multi-document and single-document summarization evaluation. The source code is released at https://github.com/Chen-Wang-CUHK/Training-Free-and-Ref-Free-Summ-Evaluation.
-
-#### Link
-https://aclanthology.org/2021.acl-long.34/
-
-
-### Another library for language model scoring
-#### Abstract 
-Pretrained masked language models (MLMs)
-require finetuning for most NLP tasks. Instead,
-we evaluate MLMs out of the box via their
-pseudo-log-likelihood scores (PLLs), which
-are computed by masking tokens one by one.
-We show that PLLs outperform scores from
-autoregressive language models like GPT-2 in
-a variety of tasks. By rescoring ASR and
-NMT hypotheses, RoBERTa reduces an endto-end LibriSpeech model’s WER by 30% relative and adds up to +1.7 BLEU on state-of-theart baselines for low-resource translation pairs, with further gains from domain adaptation. We
-attribute this success to PLL’s unsupervised expression of linguistic acceptability without a
-left-to-right bias, greatly improving on scores
-from GPT-2 (+10 points on island effects, NPI
-licensing in BLiMP). One can finetune MLMs
-to give scores without masking, enabling computation in a single inference pass. In all, PLLs
-and their associated pseudo-perplexities (PPPLs) enable plug-and-play use of the growing
-number of pretrained MLMs; e.g., we use a
-single cross-lingual model to rescore translations in multiple languages. We release our
-library for language model scoring at https:
-//github.com/awslabs/mlm-scoring
-
-#### Library
-https://github.com/awslabs/mlm-scoring
-
-Paper: https://aclanthology.org/2020.acl-main.240.pdf
-
-
-
-### Model Augmented Relevance Score (MARS)
-#### Authors 
-Ruibo Liu, Jason Wei, and Soroush Vosoughi. 2021
-
-#### Abstract
-Although automated metrics are commonly used to evaluate NLG systems, they often correlate poorly with human judgements. Newer metrics such as BERTScore have addressed many weaknesses in prior metrics such as BLEU and ROUGE, which rely on n-gram matching. These newer methods, however, are still limited in that they do not consider the generation context, so they cannot properly reward generated text that is correct but deviates from the given reference. In this paper, we propose Language Model Augmented Relevance Score (MARS), a new context-aware metric for NLG evaluation. MARS leverages off-the-shelf language models, guided by reinforcement learning, to create augmented references that consider both the generation context and available human references, which are then used as additional references to score generated text. Compared with seven existing metrics in three common NLG tasks, MARS not only achieves higher correlation with human reference judgements, but also differentiates well-formed candidates from adversarial samples to a larger degree.
-
-Paper: https://aclanthology.org/2021.acl-long.521.pdf, data can be found here:  https://aclanthology.org/2021.acl-long.521/ 
-Code:
-
-
-## Metrics from the slides
-
 ### BERTScore
 #### Authors
 Tianyi Zhang, Varsha Kishore, Felix Wu, Kilian Q. Weinberger, Yoav Artzi
@@ -139,15 +89,6 @@ Evaluating Natural Language Generation (NLG) systems is a challenging task. Firs
 
 [[Paper]](https://arxiv.org/abs/2203.09183) [[Code]](https://github.com/rashad101/RoMe)
 
-### UScore
-#### Authors
-Jonas Belouadi, Steffen Eger
-
-#### Abstract
- The vast majority of evaluation metrics for machine translation are supervised, i.e., (i) assume the existence of reference translations, (ii) are trained on human scores, or (iii) leverage parallel data. This hinders their applicability to cases where such supervision signals are not available. In this work, we develop fully unsupervised evaluation metrics. To do so, we leverage similarities and synergies between evaluation metric induction, parallel corpus mining, and MT systems. In particular, we use an unsupervised evaluation metric to mine pseudo-parallel data, which we use to remap deficient underlying vector spaces (in an iterative manner) and to induce an unsupervised MT system, which then provides pseudo-references as an additional component in the metric. Finally, we also induce unsupervised multilingual sentence embeddings from pseudo-parallel data. We show that our fully unsupervised metrics are effective, i.e., they beat supervised competitors on 4 out of our 5 evaluation datasets.
-
-[[Paper]](https://arxiv.org/abs/2202.10062) [[Code]]()
-
 ### TransQuest
 #### Authors
 Tharindu Ranasinghe, Constantin Orasan, Ruslan Mitkov
@@ -175,6 +116,8 @@ Qingsong Ma, Ondrej Bojar, and Yvette Graham
 This paper presents the results of the WMT18 Metrics Shared Task. We asked participants of this task to score the outputs of the MT systems involved in the WMT18 News Translation Task with automatic metrics. We collected scores of 10 metrics and 8 research groups. In addition to that, we computed scores of 8 standard metrics (BLEU, SentBLEU, chrF, NIST, WER, PER, TER and CDER) as baselines. The collected scores were evaluated in terms of system-level correlation (how well each metric’s scores correlate with WMT18 official manual ranking of systems) and in terms of segment-level correlation (how often a metric agrees with humans in judging the quality of a particular sentence relative to alternate outputs). This year, we employ a single kind of manual evaluation: direct assessment (DA).
 
 [[Paper]](https://aclanthology.org/W18-6450.pdf) [[Code]](https://huggingface.co/datasets/wmt18)
+
+
 
 ### Parallel Data, Tools and Interfaces in OPUS
 #### Authors
