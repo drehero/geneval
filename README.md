@@ -1,5 +1,19 @@
 # Evaluation Metrics Library
 
+## Example Usage Data
+
+```python
+from geneval.data.wmt import WMT18
+
+# wmt18 cs to en
+wmt18_cs_en = WMT18(
+    lang_pair="cs-en",
+    root="/tmp",
+    download=True
+)
+```
+
+
 https://docs.google.com/document/d/1mQQ5Bg5r7mSZjxBgXJ6lUzSRd00W2LIY3JdR4t0x2OI/edit?usp=sharing
 
 ## Research Questions
