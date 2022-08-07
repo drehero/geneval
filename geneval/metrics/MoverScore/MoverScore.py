@@ -29,9 +29,12 @@ from multiprocessing import Pool
 from functools import partial
 
 
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, logging
 
 from typing import List, Union, Iterable
+
+
+logging.set_verbosity_error()
 
 
 
@@ -62,7 +65,6 @@ _KWARGS_DESCRIPTION = """
 Calculates how good predictions are given some references. The evaluation is based on the MoverScore
 Args:
     predictions: list of predictions. Each prediction should be of type string
-
     references: List of reference lists. Each reference list contains a reference for each prediction. 
                 References should be of type string
 Returns:
@@ -81,11 +83,6 @@ Example:
 
 # create Moverscore metric
 import datasets
-
-model_name = 'distilbert-base-uncased'
-tokenizer = AutoTokenizer.from_pretrained(model_name, do_lower_case=True)
-model = AutoModel.from_pretrained(model_name, output_hidden_states=True, output_attentions=True)
-model.eval()
 
 @datasets.utils.file_utils.add_start_docstrings(_DESCRIPTION, _KWARGS_DESCRIPTION)
 class MoverScore(datasets.Metric):
@@ -119,13 +116,13 @@ class MoverScore(datasets.Metric):
         pass
     
     def truncate(self, tokens):
-        if len(tokens) > tokenizer.model_max_length - 2:
-            tokens = tokens[0:(tokenizer.model_max_length - 2)]
+        if len(tokens) > self.tokenizer.model_max_length - 2:
+            tokens = tokens[0:(self.tokenizer.model_max_length - 2)]
         return tokens
 
     def process(self, a):
-        a = ["[CLS]"]+self.truncate(tokenizer.tokenize(a))+["[SEP]"]
-        a = tokenizer.convert_tokens_to_ids(a)
+        a = ["[CLS]"]+self.truncate(self.tokenizer.tokenize(a))+["[SEP]"]
+        a = self.tokenizer.convert_tokens_to_ids(a)
         return set(a)
 
 
@@ -145,24 +142,22 @@ class MoverScore(datasets.Metric):
     def padding(self, arr, pad_token, dtype=torch.long):
         lens = torch.LongTensor([len(a) for a in arr])
         max_len = lens.max().item()
-        padded = torch.ones(len(arr), max_len, dtype=dtype) * pad_token
-        mask = torch.zeros(len(arr), max_len, dtype=torch.long)
+        padded = (torch.ones(len(arr), max_len, dtype=dtype) * pad_token).to(self.device)
+        mask = torch.zeros(len(arr), max_len, dtype=torch.long).to(self.device)
         for i, a in enumerate(arr):
             padded[i, :lens[i]] = torch.tensor(a, dtype=dtype)
             mask[i, :lens[i]] = 1
         return padded, lens, mask
 
-    def bert_encode(self, model, x, attention_mask):
-        model.eval()
+    def bert_encode(self, x, attention_mask):
+        self.model.eval()
         with torch.no_grad():
-            result = model(x, attention_mask = attention_mask)
-        if model_name == 'distilbert-base-uncased':
-            return result[1] 
+            result = self.model(x, attention_mask = attention_mask)
+        if self.model_type == 'distilbert-base-uncased':
+            return result[1]
         else:
-            return result[2] 
+            return result[2]
 
-    #with open('stopwords.txt', 'r', encoding='utf-8') as f:
-    #    stop_words = set(f.read().strip().split(' '))
 
     def collate_idf(self, arr, tokenize, numericalize, idf_dict,
                     pad="[PAD]"):
@@ -179,11 +174,10 @@ class MoverScore(datasets.Metric):
 
         return padded, padded_idf, lens, mask, tokens
 
-    def get_bert_embedding(self, all_sens, model, tokenizer, idf_dict,
-                           batch_size=-1):
+    def get_bert_embedding(self, all_sens, idf_dict, batch_size=-1):
 
         padded_sens, padded_idf, lens, mask, tokens = self.collate_idf(all_sens,
-                                                          tokenizer.tokenize, tokenizer.convert_tokens_to_ids,
+                                                          self.tokenizer.tokenize, self.tokenizer.convert_tokens_to_ids,
                                                           idf_dict)
 
         if batch_size == -1: batch_size = len(all_sens)
@@ -191,14 +185,14 @@ class MoverScore(datasets.Metric):
         embeddings = []
         with torch.no_grad():
             for i in range(0, len(all_sens), batch_size):
-                batch_embedding = self.bert_encode(model, padded_sens[i:i+batch_size],
+                batch_embedding = self.bert_encode(padded_sens[i:i+batch_size],
                                               attention_mask=mask[i:i+batch_size])
                 batch_embedding = torch.stack(batch_embedding)
                 embeddings.append(batch_embedding)
                 del batch_embedding
 
         total_embedding = torch.cat(embeddings, dim=-3)
-        return total_embedding, lens, mask, padded_idf, tokens
+        return total_embedding.cpu(), lens, mask.cpu(), padded_idf.cpu(), tokens
 
     def _safe_divide(self, numerator, denominator):
         return numerator / (denominator + 1e-30)
@@ -220,8 +214,8 @@ class MoverScore(datasets.Metric):
             batch_refs = refs[batch_start:batch_start+batch_size]
             batch_hyps = hyps[batch_start:batch_start+batch_size]
             
-            ref_embedding, ref_lens, ref_masks, ref_idf, ref_tokens = self.get_bert_embedding(batch_refs, model, tokenizer, idf_dict_ref)
-            hyp_embedding, hyp_lens, hyp_masks, hyp_idf, hyp_tokens = self.get_bert_embedding(batch_hyps, model, tokenizer, idf_dict_hyp)
+            ref_embedding, ref_lens, ref_masks, ref_idf, ref_tokens = self.get_bert_embedding(batch_refs, idf_dict_ref)
+            hyp_embedding, hyp_lens, hyp_masks, hyp_idf, hyp_tokens = self.get_bert_embedding(batch_hyps, idf_dict_hyp)
 
             ref_embedding = ref_embedding[-1]
             hyp_embedding = hyp_embedding[-1]
@@ -263,48 +257,37 @@ class MoverScore(datasets.Metric):
                 preds.append(score)
 
         return preds
-    
-    def sentence_score(self, hypothesis: str, references: List[str], trace=0):
-    
+
+    def _compute(
+        self,
+        predictions,
+        references,
+        model_type,
+        stop_words=[],
+        n_gram=1,
+        remove_subwords=True,
+        batch_size=256
+    ):
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.model_type = model_type
+        self.tokenizer = AutoTokenizer.from_pretrained(model_type, do_lower_case=True)
+        self.model = AutoModel.from_pretrained(
+            model_type, output_hidden_states=True, output_attentions=True
+        ).to(self.device)
+        self.model.eval()
+
         idf_dict_hyp = defaultdict(lambda: 1.)
         idf_dict_ref = defaultdict(lambda: 1.)
-    
-        hypothesis = [hypothesis] * len(references)
-    
-        sentence_score = 0 
+        #idf_dict_hyp = self.get_idf_dict(predictions)
+        #idf_dict_ref = self.get_idf_dict(references)
 
-        scores = self.word_mover_score(references, hypothesis, idf_dict_ref, idf_dict_hyp, stop_words=[], n_gram=1, remove_subwords=False)
-    
-        sentence_score = np.mean(scores)
-    
-        if trace > 0:
-            print(hypothesis, references, sentence_score)
-            
-        return sentence_score
-
-    def corpus_score(self, sys_stream: List[str],
-                     ref_streams:Union[str, List[Iterable[str]]], trace=0):
-
-        if isinstance(sys_stream, str):
-            sys_stream = [sys_stream]
-
-        if isinstance(ref_streams, str):
-            ref_streams = [[ref_streams]]
-
-        fhs = [sys_stream] + ref_streams
-    
-        corpus_score = 0
-        for lines in zip_longest(*fhs):
-            if None in lines:
-                raise EOFError("Source and reference streams have different lengths!")
-            
-            hypo, *refs = lines
-            corpus_score += self.sentence_score(hypo, refs, trace=0)
-        
-        corpus_score /= len(sys_stream)
-
-        return corpus_score
-
-    def _compute(self, predictions, references):
-
-        return self.corpus_score(predictions, references)
+        return self.word_mover_score(
+            refs=references,
+            hyps=predictions,
+            idf_dict_ref=idf_dict_ref,
+            idf_dict_hyp=idf_dict_hyp,
+            stop_words=stop_words,
+            n_gram=n_gram,
+            remove_subwords=remove_subwords,
+            batch_size=batch_size
+        )
