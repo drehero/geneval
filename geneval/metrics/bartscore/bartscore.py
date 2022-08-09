@@ -34,7 +34,7 @@ Calculates how good are predictions given some references, using certain scores
 Args:
     predictions: list of predictions to score. Each predictions
         should be a string with tokens separated by spaces.
-    source_documents: list of source documents for each prediction. Each
+    sources: list of source documents for each prediction. Each
         reference should be a string with tokens separated by spaces.
     model_type: model checkpoint (default: facebook/bart-large-cnn)
     max_length: maximum sequence length (default: 1024)
@@ -148,7 +148,10 @@ class NewMetric(datasets.Metric):
             # This defines the format of each prediction and reference
             features=datasets.Features({
                 'predictions': datasets.Value('string'),
-                'source_documents': datasets.Value('string'),
+                'sources': datasets.Value('string'),
+                'model_type': dataset.Value('int'),
+                'max_length': datasets.Value('int').
+                'batch_size': datasets.Value('int').
             }),
             # Homepage of the metric for documentation
             homepage="https://github.com/neulab/BARTScore",
@@ -160,11 +163,11 @@ class NewMetric(datasets.Metric):
     def _compute(
         self,
         predictions,
-        source_documents,
+        sources,
         model_type="facebook/bart-large-cnn",
         max_length=1024,
         batch_size=4
     ):
         """Returns the scores"""
         scorer = BARTScorer(checkpoint=model_type, max_length=max_length)
-        return scorer.score(srcs=source_documents, tgts=predictions)
+        return scorer.score(srcs=sources, tgts=predictions)
