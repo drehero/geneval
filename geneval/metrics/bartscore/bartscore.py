@@ -149,9 +149,6 @@ class NewMetric(datasets.Metric):
             features=datasets.Features({
                 'predictions': datasets.Value('string'),
                 'sources': datasets.Value('string'),
-                'model_type': datasets.Value('string'),
-                'max_length': datasets.Value('int32'),
-                'batch_size': datasets.Value('int32'),
             }),
             # Homepage of the metric for documentation
             homepage="https://github.com/neulab/BARTScore",
