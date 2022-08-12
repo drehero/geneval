@@ -19,7 +19,9 @@ from tqdm import tqdm
 import ot  # https://pythonot.github.io/
 from math import log
 from collections import defaultdict, Counter
-from transformers import AutoModelForMaskedLM, AutoTokenizer
+from transformers import AutoModelForMaskedLM, AutoTokenizer, logging
+
+logging.set_verbosity_error()
 
 _CITATION = """\
 @inproceedings{colombo-etal-2021-automatic,
