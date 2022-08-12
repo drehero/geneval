@@ -167,4 +167,4 @@ class NewMetric(datasets.Metric):
     ):
         """Returns the scores"""
         scorer = BARTScorer(checkpoint=model_type, max_length=max_length)
-        return scorer.score(srcs=sources, tgts=predictions)
+        return scorer.score(srcs=sources, tgts=predictions, batch_size=batch_size)
