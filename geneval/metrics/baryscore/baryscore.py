@@ -324,7 +324,7 @@ class BaryScore(datasets.Metric):
         scores = None
         for i in range(0, len(predictions), batch_size):
             preds = predictions[i: i+batch_size]
-            refs = predictions[i: i+batch_size]
+            refs = references[i: i+batch_size]
             final_preds = scorer.evaluate_batch(batch_hyps=preds, batch_refs=refs)
             if scores is None:
                 scores = final_preds.copy()
