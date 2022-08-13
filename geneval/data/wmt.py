@@ -132,3 +132,37 @@ class WMT17:
             self.references += [refs[row["SID"]-1]]
             self.scores += [row["HUMAN"]]
             self.sources += [src[row["SID"]-1]]
+
+class WMT16:
+    url = "https://www.statmt.org/wmt16/metrics-task/wmt2016-seg-metric-dev-5lps.tar.gz"
+
+    def __init__(self, lang_pair, root="./", download=True):
+        self.lang_pair = lang_pair
+        self.root = pathlib.Path(root)
+        self.download = download
+
+        # download and unpack if not exists
+        fn = pathlib.Path(self.url.split("/")[-1])
+        if not (self.root / fn.with_suffix("").stem).is_dir():
+            if not (self.root / fn).is_file():
+                if self.download:
+                    fetch(self.url, self.root / fn)
+                else:
+                    raise Exception(
+                        f"WMT16 files do not exist. Use download=True to download."
+                    )
+            shutil.unpack_archive(self.root / fn, self.root)
+        
+        path = self.root / fn.with_suffix("").stem / self.lang_pair
+        ref_path = path / f"newstest2015.reference.{self.lang_pair}"
+        src_path = path / f"newstest2015.source.{self.lang_pair}"
+        trans_path = path / f"newstest2015.mt-system.{self.lang_pair}"
+        score_path = path / f"newstest2015.human.{self.lang_pair}"
+        with open(ref_path, "r", encoding="UTF-8") as f:
+            self.references = f.read().strip().split("\n")
+        with open(src_path, "r", encoding="UTF-8") as f:
+            self.sources = f.read().strip().split("\n")
+        with open(trans_path, "r", encoding="UTF-8") as f:
+            self.translations = f.read().strip().split("\n")
+        with open(score_path, "r", encoding="UTF-8") as f:
+            self.scores = list(map(float, f.read().strip().split("\n")))
