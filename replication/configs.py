@@ -66,8 +66,8 @@ class bartscore_config:
 
     load_args = {}
     compute_args = {
-        "model_type": "facebook/bart-base",
-        #"model_type": "facebook/bart-large-cnn",
+        #"model_type": "facebook/bart-base",
+        "model_type": "facebook/bart-large-cnn",
         "max_length": 512,
         "batch_size": 128,
     }
