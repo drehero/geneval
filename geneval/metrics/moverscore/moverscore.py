@@ -40,7 +40,7 @@ logging.set_verbosity_error()
 
 # TODO: Add BibTeX citation
 _CITATION = """\
-@InProceedings{huggingface:metric,
+@InProceedings{
 title = {MoverScore},
 authors={Zhao, Wei
 , Peyrard, Maxime
@@ -105,10 +105,10 @@ class MoverScore(datasets.Metric):
                 'references': datasets.Value('string'),
             }),
             # Homepage of the metric for documentation
-            homepage="https://github.com/drehero/gen-eval-metrics",
+            homepage="https://github.com/AIPHES/emnlp19-moverscore",
             # Additional links to the codebase or references
-            codebase_urls=["http://github.com/path/to/codebase/of/new_metric"],
-            reference_urls=["http://path.to.reference.url/new_metric"]
+            codebase_urls=["https://github.com/AIPHES/emnlp19-moverscore"],
+            reference_urls=["https://arxiv.org/pdf/1909.02622.pdf"]
         )
     
     def _download_and_prepare(self, dl_manager):

@@ -84,9 +84,7 @@ class moverscore_config:
     load_args = {}
     compute_args = {
         "model_type": "bert-base-uncased",
-        "use_idfs": True,
         "batch_size": 128,
-        "n_gram": 1,
     }
 
 class baryscore_config:
