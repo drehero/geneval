@@ -69,7 +69,7 @@ class TransQuest(datasets.Metric):
         """Returns the score"""
         from transquest.algo.sentence_level.monotransquest.run_model import MonoTransQuestModel
 
-        model = MonoTransQuestModel("xlmroberta", "TransQuest/monotransquest-da-multilingual", num_labels=1)
+        model = MonoTransQuestModel("xlmroberta", "TransQuest/monotransquest-da-multilingual", num_labels=1, use_cuda=True)
 
         predictions, raw_outputs = model.predict([[source, target]])
 
