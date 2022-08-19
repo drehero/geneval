@@ -96,39 +96,42 @@ class EED(datasets.Metric):
             s = s.replace(u'U . S .', u'U.S.')
             return s
 
-        hyp = preprocess_en(predictions)
-        ref = preprocess_en(references)
-        hyp = list(hyp)
-        ref = list(ref)
+        scores = []
+        for pred, ref in zip(predictions, references):
+            hyp = preprocess_en(pred)
+            ref = preprocess_en(ref)
+            hyp = list(hyp)
+            ref = list(ref)
 
-        hyp.insert(0, " ")
-        hyp.append(" ")
-        ref.insert(0, " ")
-        ref.append(" ")
-        alpha = 2.0
-        deletion = 0.2
-        # substitutions are implemented via the distance function
-        insertion = 1.0
-        rho = 0.3
-        lj = [-1] * (len(hyp) + 1)
-        row = [1] * (len(hyp) + 1)  # row[i] stores cost of cheapest path from (0,0) to (i,l) in CDER aligment grid.
-        row[0] = 0  # CDER initialisation 0,0 = 0 rest 1
-        nextRow = [float('inf')] * (len(hyp) + 1)
-        for w in range(1, len(ref) + 1):
-            for i in range(0, len(hyp) + 1):
-                if i > 0:
-                    nextRow[i] = min(nextRow[i - 1] + deletion, row[i - 1] + distance(ref[w - 1], hyp[i - 1]),
-                                     row[i] + insertion)
-                else:
-                    nextRow[i] = row[i] + 1.0
-            minInd = nextRow.index(min(nextRow))
-            lj[minInd] += 1
-            # Long Jumps
-            if ref[w - 1] == " ":
-                jump = alpha + nextRow[minInd]
-                nextRow = [x if x < jump else jump for x in nextRow]
-            row = nextRow
+            hyp.insert(0, " ")
+            hyp.append(" ")
+            ref.insert(0, " ")
+            ref.append(" ")
+            alpha = 2.0
+            deletion = 0.2
+            # substitutions are implemented via the distance function
+            insertion = 1.0
+            rho = 0.3
+            lj = [-1] * (len(hyp) + 1)
+            row = [1] * (len(hyp) + 1)  # row[i] stores cost of cheapest path from (0,0) to (i,l) in CDER aligment grid.
+            row[0] = 0  # CDER initialisation 0,0 = 0 rest 1
             nextRow = [float('inf')] * (len(hyp) + 1)
-        coverage = rho * sum([x if x >= 0 else 1 for x in lj])
-        score = min(1, (row[-1] + coverage) / (float(len(ref)) + coverage))
-        return score
+            for w in range(1, len(ref) + 1):
+                for i in range(0, len(hyp) + 1):
+                    if i > 0:
+                        nextRow[i] = min(nextRow[i - 1] + deletion, row[i - 1] + distance(ref[w - 1], hyp[i - 1]),
+                                         row[i] + insertion)
+                    else:
+                        nextRow[i] = row[i] + 1.0
+                minInd = nextRow.index(min(nextRow))
+                lj[minInd] += 1
+                # Long Jumps
+                if ref[w - 1] == " ":
+                    jump = alpha + nextRow[minInd]
+                    nextRow = [x if x < jump else jump for x in nextRow]
+                row = nextRow
+                nextRow = [float('inf')] * (len(hyp) + 1)
+            coverage = rho * sum([x if x >= 0 else 1 for x in lj])
+            score = min(1, (row[-1] + coverage) / (float(len(ref)) + coverage))
+            scores.append(score)
+        return scores
