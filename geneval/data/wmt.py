@@ -23,6 +23,102 @@ def fetch(url, path):
                 pbar.update(len(chunk))
                 f.write(chunk)
 
+class WMT21:
+    url = "https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2021-daRR.csv.tar.gz"
+
+    def __init__(self, lang_pair, root="./", download=True):
+        self.lang_pair = lang_pair
+        self.root = pathlib.Path(root)
+        self.download = download
+
+        fn = pathlib.Path(self.url.split("/")[-1])
+        if not (self.root / fn.stem).is_dir():
+            if not (self.root / fn).is_file():
+                if self.download:
+                    fetch(self.url, self.root / fn)
+                else:
+                    raise Exception(
+                        "WMT21 files do not exist. Use download=True to download."
+                    )
+            shutil.unpack_archive(self.root / fn, self.root)
+        
+        df = pd.read_csv(self.root / "2021-daRR.csv")
+        if self.lang_pair not in df["lp"].unique():
+            raise Exception(
+                f"Dataset does not have language pair '{self.lang_pair}'. Available language pairs are: {', '.join(list(df['lp'].unique()))}."
+            )
+        df = df.loc[df["lp"] == self.lang_pair, :]
+
+        self.translations_better = df["better"].to_list()
+        self.translations_worse = df["worse"].to_list()
+        self.references = df["ref"].to_list()
+        self.sources = df["src"].to_list()
+
+
+class WMT20:
+    url = "https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2020-daRR.csv.tar.gz"
+
+    def __init__(self, lang_pair, root="./", download=True):
+        self.lang_pair = lang_pair
+        self.root = pathlib.Path(root)
+        self.download = download
+
+        fn = pathlib.Path(self.url.split("/")[-1])
+        if not (self.root / fn.stem).is_dir():
+            if not (self.root / fn).is_file():
+                if self.download:
+                    fetch(self.url, self.root / fn)
+                else:
+                    raise Exception(
+                        "WMT20 files do not exist. Use download=True to download."
+                    )
+            shutil.unpack_archive(self.root / fn, self.root)
+        
+        df = pd.read_csv(self.root / "2020-daRR.csv")
+        if self.lang_pair not in df["lp"].unique():
+            raise Exception(
+                f"Dataset does not have language pair '{self.lang_pair}'. Available language pairs are: {', '.join(list(df['lp'].unique()))}."
+            )
+        df = df.loc[df["lp"] == self.lang_pair, :]
+
+        self.translations_better = df["better"].to_list()
+        self.translations_worse = df["worse"].to_list()
+        self.references = df["ref"].to_list()
+        self.sources = df["src"].to_list()
+
+
+class WMT19:
+    url = "https://unbabel-experimental-data-sets.s3.eu-west-1.amazonaws.com/wmt/2019-daRR.csv.tar.gz"
+
+    def __init__(self, lang_pair, root="./", download=True):
+        self.lang_pair = lang_pair
+        self.root = pathlib.Path(root)
+        self.download = download
+
+        fn = pathlib.Path(self.url.split("/")[-1])
+        if not (self.root / fn.stem).is_dir():
+            if not (self.root / fn).is_file():
+                if self.download:
+                    fetch(self.url, self.root / fn)
+                else:
+                    raise Exception(
+                        "WMT19 files do not exist. Use download=True to download."
+                    )
+            shutil.unpack_archive(self.root / fn, self.root)
+
+        df = pd.read_csv(self.root / "2019-daRR.csv")
+        if self.lang_pair not in df["lp"].unique():
+            raise Exception(
+                f"Dataset does not have language pair '{self.lang_pair}'. Available language pairs are: {', '.join(list(df['lp'].unique()))}."
+            )
+        df = df.loc[df["lp"] == self.lang_pair, :]
+
+        self.translations_better = df["better"].to_list()
+        self.translations_worse = df["worse"].to_list()
+        self.references = df["ref"].to_list()
+        self.sources = df["src"].to_list()
+
+
 
 class WMT18:
     urls = [
@@ -45,7 +141,7 @@ class WMT18:
                         fetch(url, self.root / fn)
                     else:
                         raise Exception(
-                            f"WMT18 files do not exist. Use download=True to download."
+                            "WMT18 files do not exist. Use download=True to download."
                         )
                 shutil.unpack_archive(self.root / fn, self.root)
 
