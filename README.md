@@ -13,6 +13,15 @@ wmt18_cs_en = WMT18(
 )
 ```
 
+## Example Usage Metric
+```python
+import datasets
+
+bart_score = datasets.load_metric("bart_score")
+results = bart_score.compute(["This is interesting."], ["This is fun."], batch_size=4)
+print(results) #-2.516652780532837
+```
+
 
 https://docs.google.com/document/d/1mQQ5Bg5r7mSZjxBgXJ6lUzSRd00W2LIY3JdR4t0x2OI/edit?usp=sharing
 
